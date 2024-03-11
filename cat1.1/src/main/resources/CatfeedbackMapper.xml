@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.5//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.test.mapper.Cat_feedbackMapper">
+    <insert id="insertCat" parameterType="com.test.entity.Newcat">
+        INSERT INTO feedback (name, address, variety, message, photo1, photo2)
+        VALUES (#{name}, #{address}, #{variety}, #{message}, #{image1}, #{image2})
+    </insert>
+</mapper>
