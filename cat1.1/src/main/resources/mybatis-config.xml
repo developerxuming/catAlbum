@@ -17,7 +17,7 @@
                 <property name="password" value="demon123"/>
             </dataSource></environment></environments>
     <mappers>
-        <mapper resource="CatMapper.xml"/>
+        <mapper resource="CategoryMapper.xml"/>
         <mapper resource="UserMapper.xml"/>
         <mapper resource="CatfeedbackMapper.xml"/>
 <!--        <package name="com.test.mapper"/>-->

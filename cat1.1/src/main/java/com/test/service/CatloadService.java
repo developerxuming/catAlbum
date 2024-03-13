@@ -2,22 +2,21 @@ package com.test.service;
 
 import com.test.entity.vo.CatModel;
 import com.test.entity.Cat;
-import com.test.mapper.CatMapper;
+import com.test.mapper.CategoryMapper;
 import org.apache.ibatis.session.SqlSession;
 import com.test.util.GetSqlSession;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 public class CatloadService {
     public static CatModel catread() {
         CatModel catModel = new CatModel();
 
         SqlSession session = GetSqlSession.createSqlSession();
-        CatMapper catMapper = session.getMapper(CatMapper.class);
-        List<Cat> allCats = catMapper.queryAllCats();
+        CategoryMapper categoryMapper = session.getMapper(CategoryMapper.class);
+        List<Cat> allCats = categoryMapper.queryAllCats();
         int len = allCats.size();
         List<String> names = new ArrayList<>();
         List<byte[]> images = new ArrayList<>();

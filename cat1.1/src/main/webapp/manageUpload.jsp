@@ -27,7 +27,6 @@
     <link rel="stylesheet" href="plugins/slick/slick.css">
     <!-- Main Stylesheet -->
     <link rel="stylesheet" href="css/style.css">
-
 </head>
 <body>
 <div class="container">
