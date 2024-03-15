@@ -6,7 +6,6 @@
 // GITHUB: https://github.com/themefisher/
 -->
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page import="com.test.entity.Cat" %>
 <%@ page import="com.test.entity.vo.CatModel" %>
 <%@ page import="java.util.List" %>
 <%@ include file="header.jsp" %>
@@ -37,9 +36,6 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body id="body">
-<% CatModel receivedCatModel = (CatModel) request.getAttribute("catModel");
-int len = receivedCatModel.getNames().size();
-%>
 
 <section class="page-title bg-2">
     <div class="container">
@@ -56,8 +52,7 @@ int len = receivedCatModel.getNames().size();
 <div class="page-wrapper">
     <div class="container">
         <div class="row">
-            <% for (int i = 0; i < len; i++) { %>
-            <div class="col-md-6">
+            <div class="col-md-6" id="categoryList">
                 <div class="post">
                     <h3 class="post-title"><%=receivedCatModel.getNames().get(i)%></h3>
                     <div class="post-thumb">
@@ -80,7 +75,6 @@ int len = receivedCatModel.getNames().size();
                     </div>
                 </div>
             </div>
-            <% } %>
         </div>
     </div>
 </div>
@@ -112,6 +106,24 @@ int len = receivedCatModel.getNames().size();
 <script src="plugins/google-map/map.js"></script>
 <script src="js/script.js"></script>
 <script>
+    $(document).ready(function () {
+        $.ajax({
+            type: 'GET',
+            url: 'Category', // Replace 'example.php' with your actual API endpoint or URL
+            dataType: 'json', // Specify the data type expected in the response
+            success: function(response) {
+                // Callback function to handle the successful response
+                // You can perform actions with the response data here
+                $('#responseContainer').html(JSON.stringify(response)); // Display response data in the 'responseContainer' div
+            },
+            error: function(xhr, status, error) {
+                // Callback function to handle errors in the AJAX request
+                console.log(xhr.responseText); // Log the error message to the console
+            }
+        });
+    })
+    let imageContainer = $.getElementById('imageContainer');
+
     document.addEventListener("DOMContentLoaded", function () {
 
         // 获取具有类名"showPopup"的所有按钮

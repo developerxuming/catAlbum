@@ -18,18 +18,4 @@ public class Category {
     private String address;
     private String region;
     private String other;
-//    public Category(String name, byte[] image, int albumId, String age, String variety, String gender, String appearance, String neutered, String healthy, String address, String region, String other) {
-//        this.name = name;
-//        this.image = image;
-//        this.albumId = albumId;
-//        this.age = age;
-//        this.variety = variety;
-//        this.gender = gender;
-//        this.appearance = appearance;
-//        this.neutered = neutered;
-//        this.healthy = healthy;
-//        this.address = address;
-//        this.region = region;
-//        this.other = other;
-//    }
 }

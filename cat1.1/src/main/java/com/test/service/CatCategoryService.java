@@ -1,6 +1,6 @@
 package com.test.service;
 
-import com.test.entity.Cat;
+import com.google.gson.Gson;
 import com.test.entity.Category;
 import com.test.mapper.Cat_feedbackMapper;
 import com.test.mapper.CategoryMapper;
@@ -39,7 +39,7 @@ public class CatCategoryService {
         }
     }
 
-    protected static List<Category> readCatCategory(String region) {
+    protected static String readCatCategory(String region) {
         List<Category> result = new ArrayList<Category>();
         SqlSession sqlSession = GetSqlSession.createSqlSession();
         CategoryMapper categoryMapper = sqlSession.getMapper(CategoryMapper.class);
@@ -58,7 +58,12 @@ public class CatCategoryService {
                 System.out.println("区域目录查询失败！");
             }
         }
-        return result;
+//        for (int i=0; i<result.size(); i++) {
+//
+//        }
+        Gson gson = new Gson();
+        String json = gson.toJson(result);
+        return json;
     }
 
     public static void main(String[] args) {
@@ -76,7 +81,7 @@ public class CatCategoryService {
         String other = "11";
         CatCategoryService catCategoryService = new CatCategoryService();
 //        catCategoryService.saveCatCategory(name, image, albumId, age, variety, gender, appearance, neutered, healthy, address, region, other);
-        List<Category> categories = CatCategoryService.readCatCategory(region);
-        int aaa = 1;
+        String categories = CatCategoryService.readCatCategory(region);
+        System.out.println(categories);;
     }
 }
