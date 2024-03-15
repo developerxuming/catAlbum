@@ -18,10 +18,10 @@ public class CatnameServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        CatModel catModel = CatloadService.catread();
+        String catModel = CatloadService.catread();
 
         StringModel stringModel = new StringModel();
-        stringModel.setStr(catModel.getNames());
+//        stringModel.setStr(catModel.getNames());
         // 将数据传递给前端需要将数据放入 request 中
         request.setAttribute("nameModel", stringModel);
         // 转发到前端页面

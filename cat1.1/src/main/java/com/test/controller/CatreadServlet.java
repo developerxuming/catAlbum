@@ -18,9 +18,9 @@ public class CatreadServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        CatModel catModel = CatloadService.catread();
+//        CatModel catModel = CatloadService.catread();
         // 将数据传递给前端（这里你需要将数据放入 request 或 session 中）
-        request.setAttribute("catModel", catModel);
+//        request.setAttribute("catModel", catModel);
         // 转发到前端页面
         request.getRequestDispatcher("Categories.jsp").forward(request, response);
     }

@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.5//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.test.mapper.CategoryMapper">
-    <select id="queryAllCats" resultType="com.test.entity.Cat">
+    <select id="queryAllCats" resultType="com.test.entity.Category">
         select *
         from category
+    </select>
+    <select id="queryRegionCats" resultType="com.test.entity.Category">
+        select * from category where region = #{region}
     </select>
     <insert id="insertCategory" parameterType="com.test.entity.Category">
         INSERT INTO category (name, image, albumId, age, variety, gender, appearance, neutered, healthy, address, region, other)
