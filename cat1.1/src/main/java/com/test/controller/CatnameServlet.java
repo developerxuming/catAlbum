@@ -15,11 +15,9 @@ import java.io.IOException;
  */
 public class CatnameServlet extends HttpServlet {
     private CatloadService catloadService;
-    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String catModel = CatloadService.catread();
-
         StringModel stringModel = new StringModel();
 //        stringModel.setStr(catModel.getNames());
         // 将数据传递给前端需要将数据放入 request 中

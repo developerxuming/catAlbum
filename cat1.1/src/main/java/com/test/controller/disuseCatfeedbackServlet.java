@@ -13,11 +13,11 @@ import jakarta.servlet.http.Part;
 import java.io.IOException;
 import java.io.InputStream;
 /**
- * 上传新的猫
+ * 废弃
  */
 @WebServlet("/uploadNewCat")
 @MultipartConfig
-public class CatfeedbackServlet extends HttpServlet {
+public class disuseCatfeedbackServlet extends HttpServlet {
     private Cat_feedbackService catFeedbackService;
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)

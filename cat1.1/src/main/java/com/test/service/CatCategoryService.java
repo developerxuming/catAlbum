@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CatCategoryService {
-    protected void saveCatCategory(String name, byte[] image, Integer albumId, String age, String variety, String gender,
+    public void saveCatCategory(String name, byte[] image, Integer albumId, String age, String variety, String gender,
                                    String appearance, String neutered, String healthy, String address, String region, String other) {
         Category category = new Category();
         category.setName(name);
@@ -39,19 +39,19 @@ public class CatCategoryService {
         }
     }
 
-    protected static List<Category> readCatCategory(String region) {
+    public static List<Category> readCatCategory(String region) {
         List<Category> result = new ArrayList<Category>();
-        SqlSession sqlSession = GetSqlSession.createSqlSession();
-        CategoryMapper categoryMapper = sqlSession.getMapper(CategoryMapper.class);
         if (region.isEmpty()) {
-            try {
+            try (SqlSession sqlSession = GetSqlSession.createSqlSession()){
+                CategoryMapper categoryMapper = sqlSession.getMapper(CategoryMapper.class);
                 result = categoryMapper.queryAllCats();
             } catch (Exception e) {
                 e.printStackTrace();
                 System.out.println("所有目录查询失败！");
             }
         } else {
-            try {
+            try (SqlSession sqlSession = GetSqlSession.createSqlSession()){
+                CategoryMapper categoryMapper = sqlSession.getMapper(CategoryMapper.class);
                 result = categoryMapper.queryRegionCats(region);
             } catch (Exception e) {
                 e.printStackTrace();

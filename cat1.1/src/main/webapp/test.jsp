@@ -1,12 +1,4 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: demon
-  Date: 2024/3/4
-  Time: 14:00
-  To change this template use File | Settings | File Templates.
---%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ include file="header.jsp" %>
+
 <html>
 <head>
     <title>Testjs</title>
@@ -23,22 +15,29 @@
     <link rel="stylesheet" href="plugins/slick/slick.css">
     <!-- Main Stylesheet -->
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/sidebar.css">
 </head>
 <body>
-<div class="container">
-    <div class="row">
-        <h1>title1</h1>
-        <h2>title2</h2>
-        <h3>title3</h3>
-    </div>
-    <l1>first</l1>
-</div>
+    <div class="container">
 
-<iframe src="footer.jsp" frameborder="0" width="100%" height="255"></iframe>
+        <div class="dropdown-menu">
+            <button class="dropdown-toggle">Topics</button>
+
+            <ul class="dropdown-list">
+                <li class="dropdown-list__item" style="--delay:0.2s">Front-end</li>
+                <li class="dropdown-list__item" style="--delay:0.4s">Back-end</li>
+                <li class="dropdown-list__item" style="--delay:0.6s">SEO</li>
+                <li class="dropdown-list__item" style="--delay:0.8s">Digital marketing</li>
+            </ul>
+        </div>
+
+    </div>
+
+<!-- <iframe src="footer.jsp" frameborder="0" width="100%" height="255"></iframe> -->
 <!--Scroll to top-->
-<div id="scroll-to-top" class="scroll-to-top">
+<!-- <div id="scroll-to-top" class="scroll-to-top">
     <span class="icon ion-ios-arrow-up"></span>
-</div>
+</div> -->
 <!-- Main jQuery -->
 <script src="plugins/jquery/jquery.min.js"></script>
 <!-- Bootstrap 3.1 -->

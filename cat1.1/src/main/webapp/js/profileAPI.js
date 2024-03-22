@@ -1,8 +1,5 @@
-$(document).ready(function() {
-    fetchProfile()
-    fetchAlbum()
-});
 
+// 获取图床整体信息
 function fetchProfile() {
     // Construct the URL
     const apiUrl = 'https://wmimg.com/api/v1/profile'
@@ -16,12 +13,12 @@ function fetchProfile() {
         },
         success: function(response) {
             // console.log('Response Data:', response);
-            $("#albumNum").text(response['data'].album_num)
-            $("#imageNum").text(response['data'].image_num)
+            $("#albumNum").text(response['data'].album_num)  // 显示相册数量
+            $("#imageNum").text(response['data'].image_num)  // 显示相册图片数量
             let sizeInMB = response['data']['size'] / 1024; // 将大小转换为MB
             let integerPart = Math.floor(sizeInMB); // 获取整数部分
-            $("#useSpace").text(integerPart + 'MB');
-            $("#totalSpace").text(response['data'].capacity / 1024 + 'MB')
+            $("#useSpace").text(integerPart + 'MB');  // 显示图床已经使用空间
+            $("#totalSpace").text(response['data'].capacity / 1024 + 'MB')  // 显示图床总空间
         },
         error: function(xhr, status, error) {
             // Handle errors
@@ -30,6 +27,7 @@ function fetchProfile() {
     });
 }
 
+// 获取图床相册信息
 function fetchAlbum() {
     // Construct the URL
     const apiUrl = 'https://wmimg.com/api/v1/albums'
@@ -53,6 +51,7 @@ function fetchAlbum() {
     });
 }
 
+// 展示相册信息和修复内容
 function showAlbumMessage(albumList) {
     console.log(albumList)
     let innerHTML =
@@ -82,8 +81,9 @@ function showAlbumMessage(albumList) {
     $('#message').html(innerHTML);
 }
 
+// 弹出确认删除的对话框
 function deleteConfirm(id, name, num) {
-    // 弹出确认删除的对话框
+    
     let numConfirm
     if (num === 0){
         numConfirm = "该相册中已无图片"
@@ -96,6 +96,7 @@ function deleteConfirm(id, name, num) {
     }
 }
 
+// 删除相册
 function deleteAlbum(id,name) {
     // 构建URL
     const apiUrl = 'https://wmimg.com/api/v1/albums/'+id
@@ -121,6 +122,7 @@ function deleteAlbum(id,name) {
     });
 }
 
+// 获取图片
 function fetchImage(id, name) {
     // Construct the URL
     const apiUrl = 'https://wmimg.com/api/v1/images'
@@ -149,6 +151,7 @@ function fetchImage(id, name) {
     });
 }
 
+// 展示图片
 function showImage(data, id, name) {
     let current_page = data['current_page']
     let last_page = data['last_page']
@@ -194,6 +197,7 @@ function deleteImageConfirm(num, name, key, id) {
     }
 }
 
+// 删除图片
 function deleteImage(key, id, name) {
     // 构建URL
     const apiUrl = 'https://wmimg.com/api/v1/images/'+key
@@ -219,6 +223,7 @@ function deleteImage(key, id, name) {
     });
 }
 
+// 更新按钮可点击状态
 function renewButton(current_page, last_page) {
     if (current_page === 1) {
         $('#FirstPage, #prevPage').prop('disabled', true)
@@ -233,6 +238,7 @@ function renewButton(current_page, last_page) {
     $('#pageNumberDisplay').text(current_page + '/' + last_page);
 }
 
+// 通过url获取图片
 function fetchImage_url(url, id, name) {
     // Construct the URL
     const apiUrl = url

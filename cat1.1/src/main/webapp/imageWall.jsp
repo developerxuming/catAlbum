@@ -9,7 +9,7 @@
 <%@ page import="org.json.JSONObject" %>
 <%@ include file="header.jsp" %>
 <!-- 载入页面流程
-1，载入页面，检查进入页面时是否含餐，
+1，载入页面，检查进入页面时是否含参，
 2，如果含参，用URLSearchParams读取参数，直接在js中发起请求
 3，否则，使用默认参数在js中发起请求
 4，获取response，更新参数和按键状态，显示页面信息
@@ -33,6 +33,7 @@
     <link rel="stylesheet" href="plugins/slick/slick.css">
     <!-- Main Stylesheet -->
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/sidebar.css">
     <style>
         .grid-container {
             display: grid;
@@ -85,21 +86,6 @@
             <!-- Category Filters on the Left -->
             <div class="col-md-2">
                 <div class="block">
-                    <div class="portfolio-menu">
-                        <div class="btn-group btn-group-toggle btn-group-vertical " data-toggle="buttons">
-                            <h4 class="widget-title">分类</h4>
-                            <button class="btn btn-sm btn-primary" onclick="fetchImageData(0,0,'default')" style="width: 200px;">所有图片
-                            </button>
-                            <button class="btn btn-sm btn-primary" onclick="fetchImageData(41,0,'default')" style="width: 200px;">贝壳
-                            </button>
-                            <button class="btn btn-sm btn-primary" onclick="fetchImageData(52, 0, 'default')" style="width: 200px;">馋馋
-                            </button>
-                            <button class="btn btn-sm btn-primary" onclick="fetchImageData(50, 0, 'default')"
-                                    value="50_0_default" style="width: 200px;">杂图
-                            </button>
-                        </div>
-                    </div>
-                    <!-- Widget tag -->
                     <div class="portfolio-menu widget widget-category">
                         <h4 class="widget-title">其他</h4>
                         <ul class="widget-category-list">
@@ -109,10 +95,35 @@
                             </li>
                         </ul>
                     </div>
+                    <br>
+                    <div class="portfolio-menu widget widget-category">
+                        <h4 class="widget-title">相册分类目录</h4>
+                        <ul class="nav-links widget-category-list">
+                            <li>
+                                <div class="">
+                                    <a href="#" class="btn btn-sm btn-primary arrow">南区</a>
+                                </div>
+                                <ul class="sub-menu" id="southContainer"></ul>
+                            </li>
+                            <li>
+                                <div class="">
+                                    <a href="#" class="btn btn-sm btn-primary arrow">北区</a>
+                                </div>
+                                <ul class="sub-menu" id="northContainer"></ul>
+                            </li>
+                            <li>
+                                <div class="">
+                                    <a href="#" class="btn btn-sm btn-primary arrow">领养</a>
+                                </div>
+                                <ul class="sub-menu" id="adoptContainer"></ul>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
 
             <div class="col-md-10" >
+                <div id="headName"></div>
                 <!-- <div class="shuffle-wrapper"></div> -->
                 <div class="grid-container" id="imageContainer">
                 </div><hr>
@@ -135,6 +146,15 @@
 <div id="scroll-to-top" class="scroll-to-top">
     <span class="icon ion-ios-arrow-up"></span>
 </div>
+<script>
+    let arrow = document.querySelectorAll(".arrow");
+    for (var i = 0; i < arrow.length; i++) {
+        arrow[i].addEventListener("click", (e)=>{
+            let arrowParent = e.target.parentElement.parentElement;
+            arrowParent.classList.toggle("showMenu");
+        });
+    }
+</script>
 <!-- Main jQuery -->
 <script src="plugins/jquery/jquery.min.js"></script>
 <!-- Bootstrap 3.1 -->
