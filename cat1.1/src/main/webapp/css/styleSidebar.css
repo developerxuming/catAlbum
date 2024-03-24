@@ -1,0 +1,86 @@
+.nav-links{
+    height: 100%;
+    padding: 30px 0 150px 0;
+    overflow: auto;
+}
+ .nav-links::-webkit-scrollbar{
+    display: none;
+}
+.nav-links li{
+    position: relative;
+    list-style: none;
+    transition: all 0.4s ease;
+}
+.nav-links li:hover{
+    background: #fdfdfd;
+}
+.nav-links li .iocn-link{
+    /*display: flex;*/
+    /*align-items: center;*/
+    justify-content: space-between;
+}
+
+/*选项卡图形颜色*/
+.nav-links li i{
+    height: 50px;
+    min-width: 78px;
+    text-align: center;
+    line-height: 50px;
+    color: #000000;;
+    font-size: 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+.nav-links li.showMenu i.arrow{
+    transform: rotate(-180deg);
+}
+.nav-links li a{
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+}
+/*选项卡字体颜色*/
+.nav-links li a .link_name{
+    font-size: 18px;
+    font-weight: 400;
+    color: #000000;
+    transition: all 0.4s ease;
+}
+.nav-links li .sub-menu{
+    display: none;
+    max-height: 0;
+    transition: max-height 1s ease;
+}
+.nav-links li.showMenu .sub-menu{
+    display: block;
+    max-height: 500px; /* 或者一个足够大的值 */
+
+}
+
+/*子标题字体颜色*/
+.nav-links li .sub-menu a{
+    color: #000000;
+    font-size: 15px;
+    padding: 5px 0;
+    white-space: nowrap;
+    opacity: 0.6;
+    transition: all 0.3s ease;
+}
+.nav-links li .sub-menu a:hover{
+    opacity: 1;
+}
+
+.nav-links li .sub-menu .link_name{
+    display: none;
+}
+.nav-links li .sub-menu.blank{
+    opacity: 1;
+    pointer-events: auto;
+    padding: 3px 20px 6px 16px;
+    opacity: 0;
+    pointer-events: none;
+}
+.nav-links li:hover .sub-menu.blank{
+    top: 50%;
+    transform: translateY(-50%);
+}
