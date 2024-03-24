@@ -18,4 +18,5 @@ public class Category {
     private String address;
     private String region;
     private String other;
+
 }

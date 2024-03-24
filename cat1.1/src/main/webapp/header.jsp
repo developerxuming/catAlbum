@@ -51,6 +51,17 @@
                     </a>
                     <div class="navbar-collapse" id="navbarsExample09">
                         <ul class="navbar-nav">
+                            <li class="nav-item dropdown @@pages">
+                                <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown"
+                                   aria-haspopup="true" aria-expanded="false">流浪猫目录<span
+                                        class="ion-ios-arrow-down"></span></a>
+                                <ul class="dropdown-menu" aria-labelledby="dropdown05">
+                                    <li><a class="dropdown-item @@about" href="CategoriesAjax.jsp">所有校区</a></li>
+                                    <li><a class="dropdown-item @@about" href="CategoriesAjax.jsp?region=南区">南区</a></li>
+                                    <li><a class="dropdown-item @@faq" href="CategoriesAjax.jsp?region=北区">北区</a></li>
+                                    <li><a class="dropdown-item @@faq" href="CategoriesAjax.jsp?region=已领养">已经领养</a></li>
+                                </ul>
+                            </li>
                             <li class="nav-item active">
                                 <a class="nav-link"
                                    href="imageWall.jsp?externalAlbumId=0&externalPage=0&externalOrder=newest">照片墙</a>

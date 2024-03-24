@@ -81,6 +81,9 @@
 </div>
 
 <iframe src="footer.jsp" frameborder="0" width="100%" height="255"></iframe>
+<script>
+
+</script>
 <script src="plugins/jquery/jquery.min.js"></script>
 <!-- Bootstrap 3.1 -->
 <script src="plugins/bootstrap/bootstrap.min.js"></script>

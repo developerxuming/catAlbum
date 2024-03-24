@@ -1,6 +1,7 @@
 package com.test.controller;
 
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -12,8 +13,10 @@ import java.io.InputStream;
 import java.util.logging.Logger;
 
 @WebServlet("/newCat")
+@MultipartConfig
 public class CreatNewCatServlet extends HttpServlet {
     private static final Logger logger = Logger.getLogger(CreatNewCatServlet.class.getName());
+    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // 获取字符输入
         request.setCharacterEncoding("UTF-8");
@@ -42,5 +45,6 @@ public class CreatNewCatServlet extends HttpServlet {
         // 将文件内容读取为字节数组
         byte[] image1Bytes = image1InputStream.readAllBytes();
         byte[] image2Bytes = image2InputStream.readAllBytes();
+        int aaa = 111;
     }
 }

@@ -10,6 +10,7 @@ let prev_page_url  // 当前页url
 let album;  // 相册id
 
 let urlParams = new URLSearchParams(window.location.search)
+fetchAllAlbum()
 // 用于初始页面，当进入该页面时，检查url里是否存在参数，如果存在参数则按已有的参数读取图片
 if (urlParams.has("externalAlbumId")) {  // 如果urlParams有参数
     let externalAlbumId = urlParams.get('externalAlbumId')
@@ -24,6 +25,7 @@ if (urlParams.has("externalAlbumId")) {  // 如果urlParams有参数
     console.log("未检测到输入参数")
     fetchImageData(41, 0, 'default')
 }
+
 function fetchImageData(albumId, page, order) {
     // Construct the URL
     album = albumId
@@ -112,7 +114,7 @@ function readImage(data) {
     // 清空原有的图片显示区域
     imageContainer.innerHTML = '';
     // 遍历图片数据，并创建图片元素
-    for (var i = 0; i < data.length; i++) {
+    for (let i = 0; i < data.length; i++) {
         var image = data[i];
         // console.log(image.links.thumbnail_url)
         var imgElement =
@@ -172,3 +174,51 @@ $(document).ready(function () {
         loadName();
     });
 });
+
+function fetchAllAlbum() { // 获取所有相册名字
+    // Construct the URL
+    const apiUrl = 'https://wmimg.com/api/v1/albums'
+    // Make the AJAX request
+    $.ajax({
+        url: apiUrl,
+        type: 'GET',
+        headers: {
+            'Authorization': 'Bearer 229|T38cCckU3TwSdeBZnNWhE0pmXNqIvDC5vtWNT3q9',
+            'Accept': 'application/json'
+        },
+        success: function(response) {
+            // Handle successful response
+            console.log('Response Data:', response);
+            processAlbum(response['data']['data'])
+        },
+        error: function(xhr, status, error) {
+            // Handle errors
+            console.error('Error:', error);
+        }
+    });
+}
+
+function processAlbum(data) {
+// 获取容器
+    let southContainer = document.getElementById('southContainer');
+    let northContainer = document.getElementById('northContainer');
+    let adoptContainer = document.getElementById('adoptContainer');
+    // 清空原有的图片显示区域
+    southContainer.innerHTML = '';
+    northContainer.innerHTML = '';
+    adoptContainer.innerHTML = '';
+    // 遍历图片数据，并创建图片元素
+    // southContainer.innerHTML = '<li><a className="link_name" href="#">South</a></li> '
+    // northContainer.innerHTML = '<li><a className="link_name" href="#">North</a></li> '
+    // adoptContainer.innerHTML = '<li><a className="link_name" href="#">Adopt</a></li> '
+    for (let i = 0; i < data.length; i++) {
+        let Element = '<li><a href="#" onclick="fetchImageData('+ data[i]['id'] +',0,\'default\')">'+data[i]['name'] +'</a></li>'
+        if (data[i]['intro'] === "南区") {
+            southContainer.innerHTML += Element;
+        } else if (data[i]['intro'] === "北区") {
+            northContainer.innerHTML += Element;
+        } else {
+            adoptContainer.innerHTML += Element;
+        }
+    }
+}

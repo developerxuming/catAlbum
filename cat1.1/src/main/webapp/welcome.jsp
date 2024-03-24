@@ -35,7 +35,7 @@
                     <p class="animated fadeInUp"> 这是一个简单的图像分类器 </br>
                         可以输入图片让神经网络分类，或直接访问分类目录 </p>
                     <a href="classification.jsp" class="btn btn-main animated fadeInUp">图片识别</a>
-                    <a id="loadindex" class="btn btn-main animated fadeInUp"> 分类目录</a>
+                    <a href="CategoriesAjax.jsp" class="btn btn-main animated fadeInUp"> 分类目录</a>
                 </div>
             </div>
         </div>
@@ -105,19 +105,12 @@
 <script src="plugins/SyoTimer/jquery.syotimer.min.js"></script>
 <script src="js/script.js"></script>
 <script>
-    function loadIndex() {
-        // 直接跳转到目标页面
-        window.location.href = "index";
-    }
     function loadName() {
         // 直接跳转到目标页面
         window.location.href = "catName";
     }
     // 通过ID选择器获取按钮并为其添加点击事件
     $(document).ready(function () {
-        $("#loadindex").on("click", function () {
-            loadIndex();
-        });
         $("#loadname").on("click", function () {
             loadName();
         });

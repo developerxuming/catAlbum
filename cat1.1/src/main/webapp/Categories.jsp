@@ -6,8 +6,10 @@
 // GITHUB: https://github.com/themefisher/
 -->
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page import="com.test.entity.vo.CatModel" %>
+<%@ page import="com.test.entity.Cat" %>
+<%@ page import="com.test.entity.Category" %>
 <%@ page import="java.util.List" %>
+<%@ page import="java.util.Collections" %>
 <%@ include file="header.jsp" %>
 <html lang="zh-CN">
 <head>
@@ -36,6 +38,10 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body id="body">
+<% List<Category> receivedCategory;
+    receivedCategory = (List<Category>) request.getAttribute("Category");
+    int len = receivedCategory.size();
+%>
 
 <section class="page-title bg-2">
     <div class="container">
@@ -52,29 +58,34 @@
 <div class="page-wrapper">
     <div class="container">
         <div class="row">
-            <div class="col-md-6" id="categoryList">
+            <% for (int i = 0; i < len; i++) { %>
+            <div class="col-md-4">
                 <div class="post">
-                    <h3 class="post-title"><%=receivedCatModel.getNames().get(i)%></h3>
+                    <h3 class="post-title"><%=receivedCategory.get(i).getName()%></h3>
                     <div class="post-thumb">
-                        <a href="imageWall.jsp?externalAlbumId=<%=receivedCatModel.getAlbumIds().get(i)%>&externalPage=0&externalOrder=newest"
-                           title="<%=receivedCatModel.getNames().get(i)%>的照片墙">
-                            <img class="img-fluid" src="data:image/jpeg;base64,<%= new String(java.util.Base64.getEncoder().encode(receivedCatModel.getImages().get(i))) %>" alt="">
+                        <a href="imageWall.jsp?externalAlbumId=<%=receivedCategory.get(i).getAlbumId()%>&externalPage=0&externalOrder=newest"
+                           title="<%=receivedCategory.get(i).getName()%>的照片墙">
+                            <img class="img-fluid" src="data:image/jpeg;base64,<%= new String(java.util.Base64.getEncoder().encode(receivedCategory.get(i).getImage())) %>" alt="" height="100">
                         </a>
                     </div>
                     <div class="post-content">
-                        <p><strong>品种：</strong><%=receivedCatModel.getVarieties().get(i)%>><br>
-                            <strong>毛色：</strong><%=receivedCatModel.getColors().get(i)%><br>
-                            <strong>性别：</strong><%=receivedCatModel.getGenders().get(i)%><br>
-                            <strong>状况：</strong><%=receivedCatModel.getHealthies().get(i)%><br>
-                            <strong>绝育状态：</strong><%=receivedCatModel.getNeutereds().get(i)%><br>
-                            <strong>年龄：</strong><%=receivedCatModel.getAges().get(i)%>岁<br>
-                            <strong>活动范围：</strong><%=receivedCatModel.getAddresses().get(i)%></p>
-                        <a href="imageWall.jsp?externalAlbumId=<%=receivedCatModel.getAlbumIds().get(i)%>&externalPage=0&externalOrder=newest"
-                           title="<%=receivedCatModel.getNames().get(i)%>的照片墙" class="btn btn-main"><%=receivedCatModel.getNames().get(i)%>的照片墙</a>
-                        <a href="#" title="<%=receivedCatModel.getNames().get(i)%>没有关系网哦！" class="btn btn-main showPopup"><%=receivedCatModel.getNames().get(i)%>关系网</a>
+                        <p><strong>品种：</strong><%=receivedCategory.get(i).getVariety()%><br>
+                            <strong>毛色：</strong><%=receivedCategory.get(i).getAppearance()%><br>
+                            <strong>性别：</strong><%=receivedCategory.get(i).getGender()%><br>
+                            <strong>状况：</strong><%=receivedCategory.get(i).getHealthy()%><br>
+                            <strong>绝育状态：</strong><%=receivedCategory.get(i).getNeutered()%><br>
+                            <strong>年龄：</strong><%=receivedCategory.get(i).getAge()%><br>
+                            <strong>地区：</strong><%=receivedCategory.get(i).getRegion()%><br>
+                            <strong>具体活动范围：</strong><%=receivedCategory.get(i).getAddress()%><br>
+                            <strong>性格特征：</strong><%=receivedCategory.get(i).getOther()%>
+                        </p>
+                        <a href="imageWall.jsp?externalAlbumId=<%=receivedCategory.get(i).getAlbumId()%>&externalPage=0&externalOrder=newest"
+                           title="<%=receivedCategory.get(i).getName()%>的照片墙" class="btn btn-main"><%=receivedCategory.get(i).getName()%>的照片墙</a>
+                        <a href="#" title="<%=receivedCategory.get(i).getName()%>没有关系网哦！" class="btn btn-main showPopup"><%=receivedCategory.get(i).getName()%>关系网</a>
                     </div>
                 </div>
             </div>
+            <% } %>
         </div>
     </div>
 </div>
@@ -106,24 +117,6 @@
 <script src="plugins/google-map/map.js"></script>
 <script src="js/script.js"></script>
 <script>
-    $(document).ready(function () {
-        $.ajax({
-            type: 'GET',
-            url: 'Category', // Replace 'example.php' with your actual API endpoint or URL
-            dataType: 'json', // Specify the data type expected in the response
-            success: function(response) {
-                // Callback function to handle the successful response
-                // You can perform actions with the response data here
-                $('#responseContainer').html(JSON.stringify(response)); // Display response data in the 'responseContainer' div
-            },
-            error: function(xhr, status, error) {
-                // Callback function to handle errors in the AJAX request
-                console.log(xhr.responseText); // Log the error message to the console
-            }
-        });
-    })
-    let imageContainer = $.getElementById('imageContainer');
-
     document.addEventListener("DOMContentLoaded", function () {
 
         // 获取具有类名"showPopup"的所有按钮

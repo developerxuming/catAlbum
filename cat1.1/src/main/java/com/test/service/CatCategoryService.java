@@ -1,6 +1,6 @@
 package com.test.service;
 
-import com.google.gson.Gson;
+import com.test.entity.Cat;
 import com.test.entity.Category;
 import com.test.mapper.Cat_feedbackMapper;
 import com.test.mapper.CategoryMapper;
@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CatCategoryService {
-    protected void saveCatCategory(String name, byte[] image, Integer albumId, String age, String variety, String gender,
+    public void saveCatCategory(String name, byte[] image, Integer albumId, String age, String variety, String gender,
                                    String appearance, String neutered, String healthy, String address, String region, String other) {
         Category category = new Category();
         category.setName(name);
@@ -39,31 +39,26 @@ public class CatCategoryService {
         }
     }
 
-    protected static String readCatCategory(String region) {
+    public static List<Category> readCatCategory(String region) {
         List<Category> result = new ArrayList<Category>();
-        SqlSession sqlSession = GetSqlSession.createSqlSession();
-        CategoryMapper categoryMapper = sqlSession.getMapper(CategoryMapper.class);
         if (region.isEmpty()) {
-            try {
+            try (SqlSession sqlSession = GetSqlSession.createSqlSession()){
+                CategoryMapper categoryMapper = sqlSession.getMapper(CategoryMapper.class);
                 result = categoryMapper.queryAllCats();
             } catch (Exception e) {
                 e.printStackTrace();
                 System.out.println("所有目录查询失败！");
             }
         } else {
-            try {
+            try (SqlSession sqlSession = GetSqlSession.createSqlSession()){
+                CategoryMapper categoryMapper = sqlSession.getMapper(CategoryMapper.class);
                 result = categoryMapper.queryRegionCats(region);
             } catch (Exception e) {
                 e.printStackTrace();
                 System.out.println("区域目录查询失败！");
             }
         }
-//        for (int i=0; i<result.size(); i++) {
-//
-//        }
-        Gson gson = new Gson();
-        String json = gson.toJson(result);
-        return json;
+        return result;
     }
 
     public static void main(String[] args) {
@@ -81,7 +76,7 @@ public class CatCategoryService {
         String other = "11";
         CatCategoryService catCategoryService = new CatCategoryService();
 //        catCategoryService.saveCatCategory(name, image, albumId, age, variety, gender, appearance, neutered, healthy, address, region, other);
-        String categories = CatCategoryService.readCatCategory(region);
-        System.out.println(categories);;
+        List<Category> categories = CatCategoryService.readCatCategory(region);
+        int aaa = 1;
     }
 }
