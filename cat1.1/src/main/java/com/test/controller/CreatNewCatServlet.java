@@ -1,5 +1,8 @@
 package com.test.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.test.entity.vo.CategoryFeedbackModel;
+import com.test.service.ProcessCategoryService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
@@ -10,41 +13,43 @@ import jakarta.servlet.http.Part;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.PrintWriter;
 import java.util.logging.Logger;
 
 @WebServlet("/newCat")
 @MultipartConfig
 public class CreatNewCatServlet extends HttpServlet {
     private static final Logger logger = Logger.getLogger(CreatNewCatServlet.class.getName());
-    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // 获取字符输入
         request.setCharacterEncoding("UTF-8");
         System.out.println("后端处理中");
-        logger.info("variety: " + request.getParameter("variety"));
-        logger.info("name: " + request.getParameter("name"));
-        logger.info("gender: " + request.getParameter("gender"));
-        logger.info("age: " + request.getParameter("age"));
-        logger.info("address: " + request.getParameter("address"));
-        logger.info("appearance: " + request.getParameter("appearance"));
-        logger.info("other: " + request.getParameter("other"));
 
         String variety = request.getParameter("variety"); // 品种信息
         String name = request.getParameter("name");  // 名字
         String gender = request.getParameter("gender");  // 性别
         String age = request.getParameter("age");  // 年龄
         String address = request.getParameter("address");  // 生活地区
+        String neutered = request.getParameter("neutered");
+        String region = request.getParameter("region");
+        String healthy = request.getParameter("healthy");
         String appearance = request.getParameter("appearance");  // 外貌特征
         String other = request.getParameter("other");  // 性格习性信息
         // 获取文件部分
-        Part image1Part = request.getPart("image1");  // 第一张描述图片
-        Part image2Part = request.getPart("image2");  // 第二张描述图片
+        Part imagePart = request.getPart("image");  // 第一张描述图片
         // 获取文件输入流
-        InputStream image1InputStream = image1Part.getInputStream();
-        InputStream image2InputStream = image2Part.getInputStream();
+        InputStream imageInputStream = imagePart.getInputStream();
         // 将文件内容读取为字节数组
-        byte[] image1Bytes = image1InputStream.readAllBytes();
-        byte[] image2Bytes = image2InputStream.readAllBytes();
-        int aaa = 111;
+        byte[] imageBytes = imageInputStream.readAllBytes();
+        CategoryFeedbackModel categoryFeedbackModel = ProcessCategoryService.processUpload(name, imageBytes, null, age, variety, gender,
+                appearance, neutered, healthy, address, region, other);
+
+//        request.setAttribute("categoryFeedbackModel", categoryFeedbackModel);
+        response.setContentType("application/json;charset=UTF-8");
+        ObjectMapper objectMapper = new ObjectMapper();
+        String jsonResponse = objectMapper.writeValueAsString(categoryFeedbackModel);
+
+        PrintWriter out = response.getWriter();
+        out.println(jsonResponse);
     }
 }
