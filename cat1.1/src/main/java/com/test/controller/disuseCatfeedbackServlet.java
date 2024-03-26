@@ -38,11 +38,11 @@ public class disuseCatfeedbackServlet extends HttpServlet {
         byte[] image2Bytes = image2InputStream.readAllBytes();
         FeedbackModel feedbackModel = Cat_feedbackService.save_feedback(name, variety, message, address, image1Bytes, image2Bytes);
 
-        if (feedbackModel.getCode() == 1) {
+        if (feedbackModel.getCode() == 0) {
             response.sendRedirect("congratulate_feedback.jsp");
         } else {
             request.setAttribute("feedbackModel", feedbackModel);
-            request.getRequestDispatcher("newcat.jsp").forward(request, response);
+            request.getRequestDispatcher("CategoryAjax,jsp").forward(request, response);
         }
     }
 }
