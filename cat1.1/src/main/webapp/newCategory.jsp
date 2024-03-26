@@ -181,8 +181,8 @@
                 url: 'newCat', // 修改为你的服务器端处理上传的URL
                 method: `POST`,
                 data: formData,
-                processData: false,
-                contentType: false,
+                processData: false, // 不处理数据
+                contentType: false, // 不设置内容类型
                 success: function(response) {
                     console.log(response)
                     // 成功时显示成功信息

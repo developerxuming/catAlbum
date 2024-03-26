@@ -41,7 +41,7 @@ public class CreatNewCatServlet extends HttpServlet {
         InputStream imageInputStream = imagePart.getInputStream();
         // 将文件内容读取为字节数组
         byte[] imageBytes = imageInputStream.readAllBytes();
-        CategoryFeedbackModel categoryFeedbackModel = ProcessCategoryService.processUpload(name, imageBytes, null, age, variety, gender,
+        CategoryFeedbackModel categoryFeedbackModel = ProcessCategoryService.processUpload(name, imageBytes, age, variety, gender,
                 appearance, neutered, healthy, address, region, other);
 
 //        request.setAttribute("categoryFeedbackModel", categoryFeedbackModel);

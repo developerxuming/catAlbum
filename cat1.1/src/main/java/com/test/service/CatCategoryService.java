@@ -128,7 +128,7 @@ public class CatCategoryService {
         boolean stream = false;
         boolean changeName = false;
         boolean addJson = false;
-        boolean log = readChangeHistoryFile(catName);
+        boolean log = readChangeHistoryFile(catName, isAdmin).equals("满足时间限制");
         if (log || isAdmin) {
             // 如果修改了名字，则需要修改文档名字
             if (location.equals("name")) {
@@ -200,18 +200,18 @@ public class CatCategoryService {
         return stream;
     }
 
-    private static boolean readChangeHistoryFile(String catName) {
+    private static String readChangeHistoryFile(String catName, boolean Adim) {
         // 构建文件路径
         String fileName = catName + "ChangeHistory.txt";
         String filePath = property + File.separator + "src" + File.separator + "main" + File.separator + "resources" + File.separator + "changeHistory" + File.separator + "catMessageRenew" + File.separator + fileName;
-        boolean stream = false;
+        String log = "不满足时间限制";
         // 创建文件对象
         try {
             // 创建文件对象
             File file = new File(filePath);
             if (!file.exists()) {
                 System.out.println("文件不存在：" + filePath);
-                return stream;
+                return "找不到文件";
             }
             // 读取文件内容
             BufferedReader reader = new BufferedReader(new FileReader(file));
@@ -222,24 +222,30 @@ public class CatCategoryService {
                 lastLine = line;
             }
             reader.close();
-
             // 解析最后一行为 JSON 对象
             if (lastLine != null) {
                 JSONObject lastJsonObject = new JSONObject(lastLine);
                 String lastModificationTime = lastJsonObject.getString("修改时间");
-                double hoursDifference = calculateHoursDifference(lastModificationTime);
-                if (hoursDifference > 0.5) {
-                    return true;
+                // 计算时间差
+                String msg = calculateHoursDifference(lastModificationTime);
+                if (msg.equals("满足时间限制")) {
+                    log = "满足时间限制";
+                } else if (msg.equals("不满足时间限制") && Adim) {
+                    log = "管理员权限";
+                } else if (msg.equals("不满足时间限制") && !Adim) {
+                    log = "不满足时间限制，请联系管理员";
+                } else {
+                    log = "出错";
                 }
             }
         } catch (IOException | JSONException e) {
             System.out.println("读取信息失败：" + e.getMessage());
             e.printStackTrace();
         }
-        return stream;
+        return log;
     }
 
-    private static double calculateHoursDifference(String lastModificationTime) {
+    private static String calculateHoursDifference(String lastModificationTime) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         try {
             // 将读取的时间字符串转换为日期时间对象
@@ -249,11 +255,15 @@ public class CatCategoryService {
             // 计算时间差（毫秒）
             long timeDifferenceMillis = currentDate.getTime() - lastModificationDate.getTime();
             // 将毫秒转换为小时
-            return timeDifferenceMillis / (1000.0 * 60 * 60);
+            if (timeDifferenceMillis / (1000.0 * 60 * 60) >=0.5) {
+                return "满足时间限制";
+            } else {
+                return "不满足时间限制";
+            }
         } catch (ParseException e) {
             System.out.println("时间格式解析失败：" + e.getMessage());
             e.printStackTrace();
-            return -1; // 返回负值表示出错
+            return "出错"; // 返回负值表示出错
         }
     }
 
