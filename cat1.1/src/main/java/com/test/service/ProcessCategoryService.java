@@ -15,7 +15,6 @@ public class ProcessCategoryService {
         category.setAddress(address);
         category.setOther(other);
         categoryFeedbackModel.setObject(category);
-        Integer albumId = null;
         if (healthy.equals("很差")) {
             categoryFeedbackModel.setMsg("我们会持续关注它的健康状况");
         }
@@ -37,7 +36,7 @@ public class ProcessCategoryService {
         }
         if (categoryFeedbackModel.getCode() == 200) {
 
-            String Msg = CatCategoryService.saveCatCategory(name, image, albumId, age, variety, gender, appearance, neutered, healthy, address, region, other);
+            String Msg = CatCategoryService.saveCatCategory(name, image, age, variety, gender, appearance, neutered, healthy, address, region, other);
             categoryFeedbackModel.setMsg(Msg);
         }
         return categoryFeedbackModel;
