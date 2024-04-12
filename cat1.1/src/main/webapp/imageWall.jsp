@@ -91,7 +91,7 @@
                         <ul class="widget-category-list">
                             <li><a id="loadname">上传图片</a>
                             </li>
-                            <li><a href="newcat.jsp">增加新居民</a>
+                            <li><a href="newCategory.jsp">增加新居民</a>
                             </li>
                         </ul>
                     </div>

@@ -3,6 +3,8 @@ package com.test.entity;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.format.DateTimeFormatter;
+
 @Getter
 @Setter
 public class Category {
@@ -18,5 +20,5 @@ public class Category {
     private String address;
     private String region;
     private String other;
-
+    private String lastRenewTime;
 }

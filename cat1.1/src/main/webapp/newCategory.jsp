@@ -104,6 +104,7 @@
                             <label for="image">图片</label>
                             <input type="file" class="form-control" id="image" name="image" accept="image/*" required>
                         </div>
+                        <input type="hidden" name="isAdmin" value="false">
                         <span id="warmingMessage" class="text-muted">${categoryFeedbackModel.msg}</span> <br>
                         <button type="submit" class="btn btn-primary btn-lg" id="submitBtn">确定</button>
                     </form>
@@ -121,7 +122,7 @@
                 <ul class="mb-3">
                     <li>描述猫咪的品种和特征，最多50个字符。</li>
                     <li>填写您发现猫咪的地点或最近观察到的活动地区，最多50个字符。</li>
-                    <li>图片上传：请上传两张猫咪的图片，以便更好地识别。</li>
+                    <li>图片上传：请上传猫咪的图片，以便更好地识别。</li>
                 </ul>
                 <p>您可以在目录中随时更改信息</p>
                 <p>感谢您的合作！</p>

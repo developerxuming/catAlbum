@@ -34,6 +34,7 @@
     <link rel="stylesheet" href="plugins/magnific-popup/magnific-popup.css">
     <!-- Slick CSS -->
     <link rel="stylesheet" href="plugins/slick/slick.css">
+    <link rel="stylesheet" href="plugins/bootstrap-icons-1.11.3/font/bootstrap-icons.css">
     <!-- Main Stylesheet -->
     <link rel="stylesheet" href="css/style.css">
 </head>

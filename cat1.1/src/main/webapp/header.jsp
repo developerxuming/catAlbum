@@ -20,6 +20,8 @@
     <link rel="stylesheet" href="plugins/slick/slick.css">
     <!-- Main Stylesheet -->
     <link rel="stylesheet" href="css/style.css">
+    <!-- Bootstrap icons -->
+    <link rel="stylesheet" href="plugins/bootstrap-icons-1.11.3/font/bootstrap-icons.css">
 </head>
 <body>
 <%!
@@ -59,7 +61,7 @@
                                     <li><a class="dropdown-item @@about" href="CategoriesAjax.jsp">所有校区</a></li>
                                     <li><a class="dropdown-item @@about" href="CategoriesAjax.jsp?region=南区">南区</a></li>
                                     <li><a class="dropdown-item @@faq" href="CategoriesAjax.jsp?region=北区">北区</a></li>
-                                    <li><a class="dropdown-item @@faq" href="CategoriesAjax.jsp?region=已领养">已经领养</a></li>
+                                    <li><a class="dropdown-item @@faq" href="CategoriesAjax.jsp?region=领养">已经领养</a></li>
                                 </ul>
                             </li>
                             <li class="nav-item active">

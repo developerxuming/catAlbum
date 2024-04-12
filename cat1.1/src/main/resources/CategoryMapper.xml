@@ -8,8 +8,54 @@
     <select id="queryRegionCats" resultType="com.test.entity.Category">
         select * from category where region = #{region}
     </select>
+    <select id="queryNameCats" resultType="com.test.entity.Category">
+        select * from category where name = #{name}
+    </select>
     <insert id="insertCategory" parameterType="com.test.entity.Category">
-        INSERT INTO category (name, image, albumId, age, variety, gender, appearance, neutered, healthy, address, region, other)
-        VALUES (#{name}, #{image}, #{albumId}, #{age}, #{variety}, #{gender}, #{appearance}, #{neutered}, #{healthy}, #{address}, #{region}, #{other})
+        INSERT INTO category (name, image, albumId, age, variety, gender, appearance, neutered, healthy, address, region, other, lastRenewTime)
+        VALUES (#{name}, #{image}, #{albumId}, #{age}, #{variety}, #{gender}, #{appearance}, #{neutered}, #{healthy}, #{address}, #{region}, #{other}, #{lastRenewTime})
     </insert>
+    <update id="updateCategory" parameterType="map">
+        UPDATE category
+        <set>
+            <if test="name != null">
+                name = #{name},
+            </if>
+            <if test="image != null">
+                image = #{image},
+            </if>
+            <if test="albumId != null">
+                albumId = #{albumId},
+            </if>
+            <if test="age != null">
+                age = #{age},
+            </if>
+            <if test="variety != null">
+                variety = #{variety},
+            </if>
+            <if test="gender != null">
+                gender = #{gender},
+            </if>
+            <if test="appearance != null">
+                appearance = #{appearance},
+            </if>
+            <if test="neutered != null">
+                neutered = #{neutered},
+            </if>
+            <if test="healthy != null">
+                healthy = #{healthy},
+            </if>
+            <if test="address != null">
+                address = #{address},
+            </if>
+            <if test="region != null">
+                region = #{region},
+            </if>
+            <if test="other != null">
+                other = #{other},
+            </if>
+            lastRenewTime = #{lastRenewTime}
+        </set>
+        WHERE name = #{oldName}
+    </update>
 </mapper>

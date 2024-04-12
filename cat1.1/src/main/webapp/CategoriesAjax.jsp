@@ -99,7 +99,12 @@
             let block =
                 '<div class="col-md-6">' +
                 '<div class="post">' +
-                '<h3 class="post-title">' + data[i]['name'] + '</h3>' +
+                '<h3 class="post-title">' +
+                data[i]['name'] +
+                '<a href="renewCategory.jsp?name=' + data[i]['name'] + '">' +
+                '<img src="./plugins/bootstrap-icons-1.11.3/pencil-square.svg" alt="Bootstrap" width="20" height="20" style="margin-left: 2ch; color: #C0C0C0;" title="我需要修改该词条" onclick="return showConfirmation()">' +
+                '</a>' +
+                '</h3>' +
                 '<div class="post-thumb">' +
                 '<a href="imageWall.jsp?externalAlbumId=' + data[i]['albumId'] + '&externalPage=0&externalOrder=newest" title="' + data[i]['name'] + '的照片墙">' +
                 '<div style="height: 300px;">' +
@@ -130,6 +135,11 @@
         }
         // 将文档片段一次性添加到DOM中
         categoryContainer.appendChild(fragment);
+    }
+
+    function showConfirmation() {
+        return confirm("您确定要修改该词条吗？" +
+            "\n在每次修改完成后的一段时间内词条都无法再次被修改。");
     }
 
 
