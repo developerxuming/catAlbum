@@ -146,13 +146,6 @@
 <script src="plugins/SyoTimer/jquery.syotimer.min.js"></script>
 <script src="js/script.js"></script>
 <script>
-    function ShowMessage(data) {
-        let msg = data.msg;
-        if (msg) {
-            $('#warmingMessage').html('<div class="alert alert-danger">' + msg + '</div>');
-        }
-    }
-
     $(document).ready(function() {
         // 从 URL 中解析参数
         function getUrlParameter(name) {
@@ -200,7 +193,6 @@
 
         $('#renewCatForm').submit(function(event) {
             event.preventDefault(); // 取消表单的默认提交行为
-
             // 创建 FormData 对象，用于将表单数据包装成键值对
             if ($('#name').val() === "") {
                 $('#warmingMessage').html('<div class="alert alert-danger">名字不能为空</div>');

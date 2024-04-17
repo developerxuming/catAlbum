@@ -170,7 +170,7 @@ public class CatCategoryService {
                     changeName = true;
                     fileName = newName + "ChangeHistory.txt"; // 更新文件名
                 } else {// 修改失败
-                    feedback.setMessage("失败，文件名修改失败");
+                    feedback.setMessage("失败，未能修改日志文件名");
                 }
             } else {
                 fileName = catName + "ChangeHistory.txt"; // 未修改文件名用老路径
@@ -184,13 +184,13 @@ public class CatCategoryService {
                     if (!file.exists()) {
                         System.out.println("文件不存在：" + filePath);
                         feedback.setState(stream);
-                        feedback.setMessage("失败：文件不存在");
+                        feedback.setMessage("失败：目标日志文件不存在");
                         return feedback;
                     }
                     // 获取当前时间
                     String currentTime = DateUtils.formatDateTimeForSQL();
                     // 构建 JSON 字符串
-                    ChangeHistory changeHistory = new ChangeHistory(currentTime, location, oldContentMap, newContentMap, isAdmin, "");
+                    ChangeHistory changeHistory = new ChangeHistory(currentTime, location, oldContentMap, newContentMap, isAdmin, "词条更新");
                     Gson gson = new GsonBuilder().disableHtmlEscaping().create();
                     String jsonString = gson.toJson(changeHistory);
                     // 追加模式写入文件
@@ -199,33 +199,43 @@ public class CatCategoryService {
                     writer.write(jsonString);
                     // 关闭写入器
                     writer.close();
-                    System.out.println("信息写入成功！");
+                    System.out.println("成功，词条信息更新成功！");
                     addJson = true;
-                    feedback.setMessage("成功，写入信息成功");
+                    feedback.setMessage("成功，词条信息更新成功");
                 } catch (IOException e) {
-                    System.out.println("写入信息失败：" + e.getMessage());
-                    feedback.setMessage("失败，写入信息失败");
+                    System.out.println("词条信息更新失败：" + e.getMessage());
+                    File file = new File(filePath);
+                    // 尝试删除文件
+                    boolean isDeleted = file.delete();
+                    if (isDeleted) {
+                        System.out.println("失败，词条未能更新，此次修改不记录。");
+                        feedback.setMessage("失败，词条未能更新，此次修改不记录");
+                    } else {
+                        System.out.println("失败，词条未能更新，日志信息处理错误");
+                        feedback.setMessage("失败，词条未能更新，日志信息处理错误");
+
+                    }
                     e.printStackTrace();
                 }
             } else {
                 feedback.setState(changeName);
-                feedback.setMessage("失败：文件名修改失败，无法更新信息");
+                feedback.setMessage("失败：日志更新失败，无法更新词条");
                 return feedback;
             }
             if (changeName && addJson) {
                 stream =true;
-                feedback.setMessage("成功，文件名修改成功，数据库更新成功");
+                feedback.setMessage("成功：日志更新成功，词条更新成功");
                 feedback.setState(stream);
             }
         } else if (!log && !isAdmin) {
-            return new Feedback(false, "失败：时间间隔不足，请联系管理员");
+            return new Feedback(false, "失败：距离最近一次词条更新时间小于30分钟，暂时无法更新，请联系管理员处理");
         }
         return feedback;
     }
 
     private static Feedback changeFileName(String oldName, String NewName) {
         // 建立新旧两套文件的路径
-        Feedback feedback = new Feedback(false, "失败，无任何操作");
+        Feedback feedback = new Feedback(false, "失败，日志名更新无任何操作");
         String oldFileName = oldName + "ChangeHistory.txt";
         String oldFilePath = property + File.separator + "src" + File.separator + "main" + File.separator + "resources" + File.separator + "changeHistory" + File.separator + "MessageRenew" + File.separator + oldFileName;
         String newFileName = NewName + "ChangeHistory.txt";
@@ -235,16 +245,16 @@ public class CatCategoryService {
         // 文件变更
         if (oldFile.exists()) {
             if (oldFile.renameTo(newFile)) {
-                System.out.println("文件名修改成功！");
-                feedback = new Feedback(true, "成功，文件名修改成功");
+                System.out.println("日志名修改成功！");
+                feedback = new Feedback(true, "成功，日志名修改成功");
             }
         } else {
-            System.out.println("文件不存在！");
-            feedback = new Feedback(false, "失败，文件不存在");
+            System.out.println("日志不存在！");
+            feedback = new Feedback(false, "失败：日志不存在");
         }
         return feedback;
     }
-    // 读取修改历史文件，计算时间差是否允许
+    // 读取修改历史文件的最近一次修改时间，计算时间差是否满足修改条件
     private static boolean readChangeHistoryFile(String catName, String dateTime) {
         // 构建文件路径
         String fileName = catName + "ChangeHistory.txt";
@@ -327,7 +337,7 @@ public class CatCategoryService {
                     sqlSession.commit();
                     System.out.println("Result of insertCat: " + result);
                     System.out.println("数据库信息更新成功！");
-                    return new Feedback(true, "成功，数据库信息更新成功,日志更新成功");
+                    return new Feedback(true, "成功，词条信息更新成功,日志更新成功");
                 } catch (Exception e) {
                     e.printStackTrace();
                     System.out.println("添加失败！");

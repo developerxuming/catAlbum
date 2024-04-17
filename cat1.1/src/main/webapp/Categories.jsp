@@ -4,6 +4,7 @@
 // TWITTER: https://twitter.com/themefisher
 // FACEBOOK: https://www.facebook.com/themefisher
 // GITHUB: https://github.com/themefisher/
+已废弃！！请勿使用！！
 -->
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="com.test.entity.Cat" %>

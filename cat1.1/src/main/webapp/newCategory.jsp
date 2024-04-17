@@ -7,10 +7,9 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ include file="header.jsp"%>
-<%@ page import="com.test.entity.vo.CategoryFeedbackModel" %>
 <html>
 <head>
-    <title>管理系统（添加新目录）</title>
+    <title>添加新词条</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
     <!-- Favicon -->
@@ -73,7 +72,7 @@
                             <label for="neutered">是否绝育</label>
                             <select class="form-control" id="neutered" name="neutered" required>
                                 <option value="" disabled selected>请选择绝育状态</option>
-                                <option value="已绝育">已绝育（流浪猫绝育会剪耳）</option>
+                                <option value="已绝育">已绝育（流浪猫绝育会剪耳，母猫是剪右耳作为标识，而公猫是剪左耳作为标识。）</option>
                                 <option value="未绝育">未绝育</option>
                             </select>
                         </div>
@@ -83,6 +82,7 @@
                                 <option value="" disabled selected>请选择生活地区</option>
                                 <option value="南区">南区</option>
                                 <option value="北区">北区</option>
+                                <option value="领养">已领养</option>
                             </select>
                         </div>
                         <div class="form-group">
